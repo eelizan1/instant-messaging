@@ -6,9 +6,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 
-import "../../src/style.scss";
-
-function Register() {
+const Register = () => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,8 +23,7 @@ function Register() {
       //Create user
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      console.log(res);
-
+      //Create a unique image name
       const date = new Date().getTime();
       const storageRef = ref(storage, `${displayName + date}`);
 
@@ -71,7 +68,7 @@ function Register() {
           <input required type="text" placeholder="display name" />
           <input required type="email" placeholder="email" />
           <input required type="password" placeholder="password" />
-          <input style={{ display: "none" }} type="file" id="file" />
+          <input required style={{ display: "none" }} type="file" id="file" />
           <label htmlFor="file">
             <img src={Add} alt="" />
             <span>Add an avatar</span>
@@ -81,11 +78,11 @@ function Register() {
           {err && <span>Something went wrong</span>}
         </form>
         <p>
-          You do have an account? <Link to="/login">Login</Link>
+          You do have an account? <Link to="/register">Login</Link>
         </p>
       </div>
     </div>
   );
-}
+};
 
 export default Register;
